@@ -1,0 +1,21 @@
+{
+  "files.associations": {
+    "*.mem": "verilog",
+    "*.cfg": "javascript",
+    "*.syscfg": "javascript",
+    "rpl_upward.h": "c",
+    "gpio.h": "c",
+    "clock.h": "c",
+    "atomic": "c",
+    "cstdint": "c",
+    "led.h": "c",
+    "aon_batmon.h": "c",
+    "unistd.h": "c",
+    "stdbool.h": "c",
+    "stdint.h": "c",
+    "bios.h": "c",
+    "semaphore.h": "c",
+    "display.h": "c",
+    "system.h": "c"
+  }
+}

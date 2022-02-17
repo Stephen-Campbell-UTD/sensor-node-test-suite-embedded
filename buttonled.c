@@ -30,23 +30,27 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- *    ======== buttonled.c ========
- */
+ /*
+  *    ======== buttonled.c ========
+  */
 #include <stdint.h>
 #include <stdbool.h>
 #include <unistd.h>
 
-/* Driver Header files */
+  /* Driver Header files */
 #include <ti/drivers/GPIO.h>
 #include <ti/display/Display.h>
 #include <ti/drivers/utils/RingBuf.h>
 #include <ti/drivers/apps/LED.h>
 #include <ti/drivers/apps/Button.h>
 #include <ti/sysbios/knl/Semaphore.h>
+#include <ti/sysbios/BIOS.h>
 #include <xdc/runtime/System.h>
 /* Driver Configuration */
 #include "ti_drivers_config.h"
+
+#include "main_tirtos.h"
+#include "sensorNode.h"
 
 #define BLINKCOUNT            3
 #define FASTBLINK             500
@@ -65,8 +69,7 @@
 #define CONFIG_LED2            2
 #endif
 
-typedef struct buttonStats
-{
+typedef struct buttonStats {
     unsigned int pressed;
     unsigned int clicked;
     unsigned int released;
@@ -78,8 +81,6 @@ typedef struct buttonStats
 
 Button_Handle    buttonHandle[CONFIG_BUTTONCOUNT];
 LED_Handle       ledHandle[CONFIG_LEDCOUNT];
-extern Display_Handle   display;
-extern Semaphore_Handle   displaySem;
 buttonStats      bStats;
 RingBuf_Object   eventRingObj;
 RingBuf_Object   batmonRingObj;
@@ -89,80 +90,69 @@ uint8_t          eventBuf[EVENTBUFSIZE];
 /*
  *  ======== doEventLogs ========
  */
-void doEventLogs(void)
-{
-    uint32_t timeout = 1000 * (1000/ti_sysbios_knl_Clock_tickPeriod);
-    bool wasSuccess = false;
-    while(!wasSuccess){
-        wasSuccess = Semaphore_pend(displaySem,timeout);
-    }
+static void doEventLogs(void) {
     uint8_t event;
-    while(RingBuf_get(&eventRingObj, &event) >= 0)
-    {
+    while (RingBuf_get(&eventRingObj, &event) >= 0) {
         uint8_t buttonNum = 3;
         RingBuf_get(&eventRingObj, &buttonNum);
-        if(event & Button_EV_CLICKED)
-        {
+        if (event & Button_EV_CLICKED) {
+            Semaphore_pend(displaySem, BIOS_WAIT_FOREVER);
             Display_print1(display, 0, 0, "Button:Click %d ", buttonNum);
+            Semaphore_post(displaySem);
+            readDecibel();
         }
-        if(event & Button_EV_DOUBLECLICKED)
-        {
+        if (event & Button_EV_DOUBLECLICKED) {
+            Semaphore_pend(displaySem, BIOS_WAIT_FOREVER);
             Display_print1(display, 0, 0, "Button:Double Click %d", buttonNum);
+            Semaphore_post(displaySem);
         }
-        if(event & Button_EV_LONGPRESSED)
-        {
+        if (event & Button_EV_LONGPRESSED) {
+            Semaphore_pend(displaySem, BIOS_WAIT_FOREVER);
             Display_print1(display, 0, 0, "Button:Long Pressed %d", buttonNum);
+            Semaphore_post(displaySem);
         }
     }
 
-    Semaphore_post(displaySem);
 }
 
 
 /*
  *  ======== handleButtonCallback ========
  */
-void handleButtonCallback(Button_Handle handle, Button_EventMask events, uint8_t buttonNumber)
-{
+static void handleButtonCallback(Button_Handle handle, Button_EventMask events, uint8_t buttonNumber) {
     System_printf("Button %d Event\n", buttonNumber);
     // System_flush();
     uint_least8_t ledIndex = (buttonHandle[CONFIG_BUTTON_0] == handle) ?
-                              CONFIG_LED_0 : CONFIG_LED_1;
+        CONFIG_LED_0 : CONFIG_LED_1;
     LED_Handle led = ledHandle[ledIndex];
 
-    if(Button_EV_PRESSED == (events & Button_EV_PRESSED))
-    {
+    if (Button_EV_PRESSED == (events & Button_EV_PRESSED)) {
         bStats.pressed++;
     }
 
-    if(Button_EV_RELEASED == (events & Button_EV_RELEASED))
-    {
+    if (Button_EV_RELEASED == (events & Button_EV_RELEASED)) {
         bStats.released++;
     }
 
-    if(Button_EV_CLICKED == (events & Button_EV_CLICKED))
-    {
+    if (Button_EV_CLICKED == (events & Button_EV_CLICKED)) {
         bStats.clicked++;
         bStats.lastpressedduration =
-                Button_getLastPressedDuration(handle);
+            Button_getLastPressedDuration(handle);
 
         /* Put event in ring buffer for printing */
         RingBuf_put(&eventRingObj, events);
         RingBuf_put(&eventRingObj, buttonNumber);
 
-        if(LED_STATE_BLINKING == LED_getState(led))
-        {
+        if (LED_STATE_BLINKING == LED_getState(led)) {
             LED_stopBlinking(led);
             LED_setOff(led);
         }
-        else
-        {
+        else {
             LED_toggle(led);
         }
     }
 
-    if(Button_EV_LONGPRESSED == (events & Button_EV_LONGPRESSED))
-    {
+    if (Button_EV_LONGPRESSED == (events & Button_EV_LONGPRESSED)) {
         bStats.longPress++;
 
         /* Put event in ring buffer for printing */
@@ -172,44 +162,39 @@ void handleButtonCallback(Button_Handle handle, Button_EventMask events, uint8_t
         LED_startBlinking(led, SLOWBLINK, LED_BLINK_FOREVER);
     }
 
-    if(Button_EV_LONGCLICKED == (events & Button_EV_LONGCLICKED))
-    {
+    if (Button_EV_LONGCLICKED == (events & Button_EV_LONGCLICKED)) {
         bStats.longClicked++;
         bStats.lastpressedduration = Button_getLastPressedDuration(handle);
         LED_stopBlinking(led);
     }
 
-    if(Button_EV_DOUBLECLICKED == (events & Button_EV_DOUBLECLICKED))
-    {
+    if (Button_EV_DOUBLECLICKED == (events & Button_EV_DOUBLECLICKED)) {
         bStats.doubleclicked++;
 
         /* Put event in ring buffer for printing */
         RingBuf_put(&eventRingObj, events);
         RingBuf_put(&eventRingObj, buttonNumber);
 
-        if(LED_STATE_BLINKING != LED_getState(led))
-        {
+        if (LED_STATE_BLINKING != LED_getState(led)) {
             LED_startBlinking(led, FASTBLINK, BLINKCOUNT);
         }
-        else
-        {
+        else {
             LED_stopBlinking(led);
             LED_setOff(led);
         }
     }
 }
-void handleButton1Callback(Button_Handle handle, Button_EventMask events){
-    handleButtonCallback(handle,events, 1);
+static void handleButton1Callback(Button_Handle handle, Button_EventMask events) {
+    handleButtonCallback(handle, events, 1);
 }
-void handleButton2Callback(Button_Handle handle, Button_EventMask events){
-    handleButtonCallback(handle,events, 2);
+static void handleButton2Callback(Button_Handle handle, Button_EventMask events) {
+    handleButtonCallback(handle, events, 2);
 }
 
 /*
  *  ======== mainThread ========
  */
-void *buttonLEDThreadFunc(void *arg0)
-{
+void* buttonLEDThreadFunc(void* arg0) {
     int inc;
     bool dir = true;
 
@@ -224,16 +209,16 @@ void *buttonLEDThreadFunc(void *arg0)
     /* Create ring buffer to store button events */
     RingBuf_construct(&eventRingObj, eventBuf, EVENTBUFSIZE);
 
-    uint32_t timeout = 1000 * (1000/ti_sysbios_knl_Clock_tickPeriod);
+    uint32_t timeout = 1000 * (1000 / ti_sysbios_knl_Clock_tickPeriod);
     bool wasSuccess = false;
-    while(!wasSuccess){
-        wasSuccess = Semaphore_pend(displaySem,timeout);
+    while (!wasSuccess) {
+        wasSuccess = Semaphore_pend(displaySem, timeout);
     }
     // if was
     Display_print0(display, 0, 0, "Button/LED Demo:\n"
-                   "Each button controls an LED. Click to toggle, "
-                   "double click to fast blink three times, "
-                   "hold the button to slow blink.\n");
+        "Each button controls an LED. Click to toggle, "
+        "double click to fast blink three times, "
+        "hold the button to slow blink.\n");
 
     /* Open button 1 and button 2 */
     Button_Params_init(&buttonParams1);
@@ -244,9 +229,8 @@ void *buttonLEDThreadFunc(void *arg0)
     buttonHandle[CONFIG_BUTTON_1] = Button_open(CONFIG_BUTTON_1, &buttonParams2);
 
     /* Check if the button open is successful */
-    if((buttonHandle[CONFIG_BUTTON_1]  == NULL) ||
-        (buttonHandle[CONFIG_BUTTON_0]  == NULL))
-    {
+    if ((buttonHandle[CONFIG_BUTTON_1] == NULL) ||
+        (buttonHandle[CONFIG_BUTTON_0] == NULL)) {
         Display_print0(display, 0, 0, "Button Open Failed!");
     }
 
@@ -254,8 +238,7 @@ void *buttonLEDThreadFunc(void *arg0)
     LED_Params_init(&ledParams);
     ledHandle[CONFIG_LED_0] = LED_open(CONFIG_LED_0, &ledParams);
     ledHandle[CONFIG_LED_1] = LED_open(CONFIG_LED_1, &ledParams);
-    if((ledHandle[CONFIG_LED_0] == NULL) || (ledHandle[CONFIG_LED_1] == NULL))
-    {
+    if ((ledHandle[CONFIG_LED_0] == NULL) || (ledHandle[CONFIG_LED_1] == NULL)) {
         Display_print0(display, 0, 0, "LED Open Failed!");
     }
     Semaphore_post(displaySem);
@@ -264,27 +247,22 @@ void *buttonLEDThreadFunc(void *arg0)
     /* Open a PWM LED if our board has one */
     ledParams.setState = LED_STATE_ON;
     ledHandle[CONFIG_LED_2] = LED_open(CONFIG_LED_2, &ledParams);
-    if(ledHandle[CONFIG_LED_2] == NULL)
-    {
+    if (ledHandle[CONFIG_LED_2] == NULL) {
         Display_print0(display, 0, 0, "PWM LED Open Failed!");
     }
 #endif
 
 
-    while(1)
-    {
+    while (1) {
 
         /* Does a "heart beat" effect for the PWM LED if we opened one */
-        for(inc = 0; inc < 100; inc += 5)
-        {
+        for (inc = 0; inc < 100; inc += 5) {
 #if CONFIG_LEDCOUNT > 2
             int duty;
-            if(dir)
-            {
+            if (dir) {
                 duty = inc;
             }
-            else
-            {
+            else {
                 duty = 100 - inc;
             }
             LED_setOn(ledHandle[CONFIG_LED_2], duty);

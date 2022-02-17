@@ -1,4 +1,5 @@
 {
+  "editor.formatOnSave": true,
   "files.associations": {
     "*.mem": "verilog",
     "*.cfg": "javascript",
@@ -16,6 +17,13 @@
     "bios.h": "c",
     "semaphore.h": "c",
     "display.h": "c",
-    "system.h": "c"
+    "system.h": "c",
+    "displaybatmon.h": "c",
+    "main_tirtos.h": "c",
+    "ti_drivers_config.h": "c",
+    "buttonled.h": "c",
+    "adccc26xx.h": "c",
+    "devicefamily.h": "c",
+    "adcbufcc26x2.h": "c"
   }
 }

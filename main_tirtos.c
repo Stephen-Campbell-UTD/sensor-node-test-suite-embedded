@@ -31,35 +31,40 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- *  ======== main_tirtos.c ========
- */
+ /*
+  *  ======== main_tirtos.c ========
+  */
 #include <stdint.h>
 
-/* POSIX Header files */
+  /* POSIX Header files */
 #include <pthread.h>
 
 /* RTOS header files */
 #include <ti/sysbios/BIOS.h>
 
 #include <ti/drivers/Board.h>
-#include <ti/display/Display.h>
+#include <ti/drivers/ADCBuf.h>
+#include <ti/drivers/adcbuf/ADCBufCC26X2.h>
+#include <ti/display/Display.h> 
 #include <ti/sysbios/knl/Semaphore.h>
+#include "ti_drivers_config.h"
+#include "main_tirtos.h"
+#include "buttonled.h"
+#include "displayBatmon.h"
 
 Display_Handle display;
+ADCBuf_Handle adcBuf;
 Semaphore_Handle displaySem;
 Semaphore_Struct displaySemStruct;
-extern void *buttonLEDThreadFunc(void *arg0);
-extern void *displayBatmonThreadFunc(void *arg0);
 
 /* Stack size in bytes */
 #define THREADSTACKSIZE    1024
 
+
 /*
  *  ======== main ========
  */
-int main(void)
-{
+int main(void) {
     pthread_t           buttonLEDThread;
     pthread_attr_t      buttonLEDAttrs;
     pthread_t           displayBatmonThread;
@@ -74,12 +79,28 @@ int main(void)
     Semaphore_Params_init(&displaySemParams);
     // Semaphore_ctr
     display = Display_open(Display_Type_UART, NULL);
-    if(display == NULL)
-    {
-        while(1);
+    if (display == NULL) {
+        while (1);
     }
-    Semaphore_construct(&displaySemStruct,1,&displaySemParams);
+    Semaphore_construct(&displaySemStruct, 1, &displaySemParams);
     displaySem = Semaphore_handle(&displaySemStruct);
+
+    ADCBuf_init();
+    ADCBuf_Params adcBufParams;
+    ADCBuf_Params_init(&adcBufParams);
+    // tickPeriod is in us
+    adcBufParams.blockingTimeout = 1000000 / ti_sysbios_knl_Clock_tickPeriod;
+    adcBufParams.samplingFrequency = 44100;
+    //TODO initialize params
+    ADCBufCC26X2_ParamsExtension adcBufParamsExtension = {
+        .samplingDuration = ADCBufCC26X2_SAMPLING_DURATION_10P6_US,
+        .inputScalingEnabled = true ,
+        .refSource = ADCBufCC26X2_FIXED_REFERENCE,
+        .samplingMode = ADCBufCC26X2_SAMPING_MODE_ASYNCHRONOUS
+    };
+    adcBufParams.custom = &adcBufParamsExtension;
+
+    adcBuf = ADCBuf_open(CONFIG_ADCBUF_0, &adcBufParams);
 
     /* Initialize the attributes structure with default values */
     pthread_attr_init(&buttonLEDAttrs);

@@ -14,7 +14,7 @@ XOPTS = -I"C:/ti/ccs1110/xdctools_3_62_01_16_core/packages/" -Dxdc_target_types_
 
 BIOS_DEFS =  -Dti_sysbios_BIOS_swiEnabled__D=TRUE -Dti_sysbios_BIOS_taskEnabled__D=TRUE -Dti_sysbios_BIOS_clockEnabled__D=TRUE -Dti_sysbios_BIOS_runtimeCreatesEnabled__D=TRUE -Dti_sysbios_knl_Task_moduleStateCheckFlag__D=FALSE -Dti_sysbios_knl_Task_objectCheckFlag__D=FALSE -Dti_sysbios_hal_Hwi_DISABLE_ALL_HOOKS -Dti_sysbios_knl_Swi_DISABLE_ALL_HOOKS -Dti_sysbios_BIOS_smpEnabled__D=FALSE -Dti_sysbios_Build_useHwiMacros -Dti_sysbios_Build_useIndirectReferences=FALSE -Dti_sysbios_knl_Swi_numPriorities__D=6 -Dti_sysbios_knl_Task_deleteTerminatedTasks__D=FALSE -Dti_sysbios_knl_Task_numPriorities__D=6 -Dti_sysbios_knl_Task_checkStackFlag__D=FALSE -Dti_sysbios_knl_Task_initStackFlag__D=TRUE -Dti_sysbios_knl_Task_DISABLE_ALL_HOOKS -Dti_sysbios_knl_Clock_TICK_SOURCE=ti_sysbios_knl_Clock_TickSource_TIMER -Dti_sysbios_knl_Clock_TICK_MODE=ti_sysbios_knl_Clock_TickMode_DYNAMIC -Dti_sysbios_hal_Core_delegate_getId=ti_sysbios_hal_CoreNull_getId__E -Dti_sysbios_hal_Core_delegate_interruptCore=ti_sysbios_hal_CoreNull_interruptCore__E -Dti_sysbios_hal_Core_delegate_lock=ti_sysbios_hal_CoreNull_lock__E -Dti_sysbios_hal_Core_delegate_unlock=ti_sysbios_hal_CoreNull_unlock__E -Dti_sysbios_hal_Core_numCores__D=1 -Dti_sysbios_hal_CoreNull_numCores__D=1 -Dti_sysbios_utils_Load_taskEnabled__D=TRUE -Dti_sysbios_utils_Load_swiEnabled__D=FALSE -Dti_sysbios_utils_Load_hwiEnabled__D=FALSE -Dti_sysbios_family_arm_m3_Hwi_dispatcherSwiSupport__D=TRUE -Dti_sysbios_family_arm_m3_Hwi_dispatcherTaskSupport__D=TRUE -Dti_sysbios_family_arm_m3_Hwi_dispatcherAutoNestingSupport__D=TRUE -Dti_sysbios_family_arm_m3_Hwi_dispatcherIrpTrackingSupport__D=TRUE -Dti_sysbios_knl_Semaphore_supportsEvents__D=FALSE -Dti_sysbios_knl_Semaphore_supportsPriority__D=FALSE -Dxdc_runtime_Assert_DISABLE_ALL -Dxdc_runtime_Log_DISABLE_ALL -DDeviceFamily_CC13X2X7 
 
-CCOPTS = -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mlittle-endian -mthumb -Oz -I"C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71" -I"C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug" -I"C:/ti/simplelink_cc13xx_cc26xx_sdk_5_30_01_01/source" -I"C:/ti/simplelink_cc13xx_cc26xx_sdk_5_30_01_01/source/ti/posix/ticlang" -DDeviceFamily_CC13X2X7 -gstrict-dwarf -gdwarf-3 -march=armv7e-m    -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16  -Oz -g   -Dti_sysbios_family_arm_cc26xx_Boot_driverlibVersion=2 -Dti_posix_tirtos_Settings_debug__D=FALSE -Dti_sysbios_knl_Clock_stopCheckNext__D=TRUE -Dti_sysbios_family_arm_m3_Hwi_enableException__D=FALSE -Dti_sysbios_family_arm_m3_Hwi_disablePriority__D=32U -Dti_sysbios_family_arm_m3_Hwi_numSparseInterrupts__D=0U -Dti_sysbios_knl_Task_minimizeLatency__D=FALSE
+CCOPTS = -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mlittle-endian -mthumb -Oz -I"C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite" -I"C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug" -I"C:/ti/simplelink_cc13xx_cc26xx_sdk_5_30_01_01/source" -I"C:/ti/simplelink_cc13xx_cc26xx_sdk_5_30_01_01/source/ti/posix/ticlang" -DDeviceFamily_CC13X2X7 -gstrict-dwarf -gdwarf-3 -march=armv7e-m    -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16  -Oz -g   -Dti_sysbios_family_arm_cc26xx_Boot_driverlibVersion=2 -Dti_posix_tirtos_Settings_debug__D=FALSE -Dti_sysbios_knl_Clock_stopCheckNext__D=TRUE -Dti_sysbios_family_arm_m3_Hwi_enableException__D=FALSE -Dti_sysbios_family_arm_m3_Hwi_disablePriority__D=32U -Dti_sysbios_family_arm_m3_Hwi_numSparseInterrupts__D=0U -Dti_sysbios_knl_Task_minimizeLatency__D=FALSE
 
 BIOS_INC = -I"C:/ti/simplelink_cc13xx_cc26xx_sdk_5_30_01_01/kernel/tirtos/packages/"
 ANNEX_INCS =  -IC:/ti/simplelink_cc13xx_cc26xx_sdk_5_30_01_01/source/ti/posix/ticlang
@@ -63,9 +63,9 @@ _BIOS.o: BIOS.c makefile
 knl_Clock.o: knl/Clock.c makefile
 	@-$(call RM, knl_Clock.o)
 	$(COMPILE) -o knl_Clock.o
-cfg_buttonled_pm4f_ti_sysbios_knl_Clock_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_knl_Clock_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_knl_Clock_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_knl_Clock_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Clock_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_knl_Clock_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Clock_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Clock_config.o
 knl_Idle.o: knl/Idle.c makefile
 	@-$(call RM, knl_Idle.o)
 	$(COMPILE) -o knl_Idle.o
@@ -75,63 +75,63 @@ knl_Intrinsics.o: knl/Intrinsics.c makefile
 knl_Event.o: knl/Event.c makefile
 	@-$(call RM, knl_Event.o)
 	$(COMPILE) -o knl_Event.o
-cfg_buttonled_pm4f_ti_sysbios_knl_Event_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_knl_Event_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_knl_Event_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_knl_Event_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Event_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_knl_Event_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Event_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Event_config.o
 knl_Mailbox.o: knl/Mailbox.c makefile
 	@-$(call RM, knl_Mailbox.o)
 	$(COMPILE) -o knl_Mailbox.o
-cfg_buttonled_pm4f_ti_sysbios_knl_Mailbox_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_knl_Mailbox_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_knl_Mailbox_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_knl_Mailbox_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Mailbox_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_knl_Mailbox_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Mailbox_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Mailbox_config.o
 knl_Queue.o: knl/Queue.c makefile
 	@-$(call RM, knl_Queue.o)
 	$(COMPILE) -o knl_Queue.o
-cfg_buttonled_pm4f_ti_sysbios_knl_Queue_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_knl_Queue_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_knl_Queue_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_knl_Queue_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Queue_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_knl_Queue_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Queue_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Queue_config.o
 knl_Semaphore.o: knl/Semaphore.c makefile
 	@-$(call RM, knl_Semaphore.o)
 	$(COMPILE) -o knl_Semaphore.o
-cfg_buttonled_pm4f_ti_sysbios_knl_Semaphore_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_knl_Semaphore_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_knl_Semaphore_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_knl_Semaphore_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Semaphore_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_knl_Semaphore_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Semaphore_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Semaphore_config.o
 knl_Swi.o: knl/Swi.c makefile
 	@-$(call RM, knl_Swi.o)
 	$(COMPILE) -o knl_Swi.o
-cfg_buttonled_pm4f_ti_sysbios_knl_Swi_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_knl_Swi_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_knl_Swi_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_knl_Swi_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Swi_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_knl_Swi_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Swi_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Swi_config.o
 knl_Task.o: knl/Task.c makefile
 	@-$(call RM, knl_Task.o)
 	$(COMPILE) -o knl_Task.o
-cfg_buttonled_pm4f_ti_sysbios_knl_Task_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_knl_Task_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_knl_Task_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_knl_Task_config.o
-cfg_buttonled_pm4f_ti_sysbios_knl_Clock_TimerProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_knl_Clock_TimerProxy_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_knl_Clock_TimerProxy_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_knl_Clock_TimerProxy_config.o
-cfg_buttonled_pm4f_ti_sysbios_knl_Task_SupportProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_knl_Task_SupportProxy_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_knl_Task_SupportProxy_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_knl_Task_SupportProxy_config.o
-cfg_buttonled_pm4f_ti_sysbios_BIOS_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_BIOS_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_BIOS_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_BIOS_config.o
-cfg_buttonled_pm4f_ti_sysbios_BIOS_RtsGateProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_BIOS_RtsGateProxy_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_BIOS_RtsGateProxy_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_BIOS_RtsGateProxy_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Task_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_knl_Task_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Task_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Task_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Clock_TimerProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_knl_Clock_TimerProxy_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Clock_TimerProxy_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Clock_TimerProxy_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Task_SupportProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_knl_Task_SupportProxy_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Task_SupportProxy_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Task_SupportProxy_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_BIOS_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_BIOS_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_BIOS_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_BIOS_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_BIOS_RtsGateProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_BIOS_RtsGateProxy_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_BIOS_RtsGateProxy_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_BIOS_RtsGateProxy_config.o
 m3_Hwi.o: family/arm/m3/Hwi.c makefile
 	@-$(call RM, m3_Hwi.o)
 	$(COMPILE) -o m3_Hwi.o
-cfg_buttonled_pm4f_ti_sysbios_family_arm_m3_Hwi_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_family_arm_m3_Hwi_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_family_arm_m3_Hwi_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_family_arm_m3_Hwi_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_m3_Hwi_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_m3_Hwi_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_m3_Hwi_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_m3_Hwi_config.o
 m3_TaskSupport.o: family/arm/m3/TaskSupport.c makefile
 	@-$(call RM, m3_TaskSupport.o)
 	$(COMPILE) -o m3_TaskSupport.o
-cfg_buttonled_pm4f_ti_sysbios_family_arm_m3_TaskSupport_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_family_arm_m3_TaskSupport_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_family_arm_m3_TaskSupport_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_family_arm_m3_TaskSupport_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_m3_TaskSupport_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_m3_TaskSupport_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_m3_TaskSupport_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_m3_TaskSupport_config.o
 cc26xx_Boot.o: family/arm/cc26xx/Boot.c makefile
 	@-$(call RM, cc26xx_Boot.o)
 	$(COMPILE) -o cc26xx_Boot.o
@@ -141,15 +141,15 @@ cc26xx_Seconds.o: family/arm/cc26xx/Seconds.c makefile
 cc26xx_Timer.o: family/arm/cc26xx/Timer.c makefile
 	@-$(call RM, cc26xx_Timer.o)
 	$(COMPILE) -o cc26xx_Timer.o
-cfg_buttonled_pm4f_ti_sysbios_family_arm_cc26xx_Timer_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_family_arm_cc26xx_Timer_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_family_arm_cc26xx_Timer_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_family_arm_cc26xx_Timer_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_cc26xx_Timer_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_cc26xx_Timer_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_cc26xx_Timer_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_cc26xx_Timer_config.o
 cc26xx_TimestampProvider.o: family/arm/cc26xx/TimestampProvider.c makefile
 	@-$(call RM, cc26xx_TimestampProvider.o)
 	$(COMPILE) -o cc26xx_TimestampProvider.o
-cfg_buttonled_pm4f_ti_sysbios_family_arm_cc26xx_TimestampProvider_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_family_arm_cc26xx_TimestampProvider_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_family_arm_cc26xx_TimestampProvider_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_family_arm_cc26xx_TimestampProvider_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_cc26xx_TimestampProvider_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_cc26xx_TimestampProvider_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_cc26xx_TimestampProvider_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_cc26xx_TimestampProvider_config.o
 hal_Hwi.o: hal/Hwi.c makefile
 	@-$(call RM, hal_Hwi.o)
 	$(COMPILE) -o hal_Hwi.o
@@ -159,45 +159,45 @@ hal_Hwi_stack.o: hal/Hwi_stack.c makefile
 hal_Hwi_startup.o: hal/Hwi_startup.c makefile
 	@-$(call RM, hal_Hwi_startup.o)
 	$(COMPILE) -o hal_Hwi_startup.o
-cfg_buttonled_pm4f_ti_sysbios_hal_Hwi_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_hal_Hwi_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_hal_Hwi_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_hal_Hwi_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_hal_Hwi_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_hal_Hwi_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_hal_Hwi_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_hal_Hwi_config.o
 hal_Seconds.o: hal/Seconds.c makefile
 	@-$(call RM, hal_Seconds.o)
 	$(COMPILE) -o hal_Seconds.o
-cfg_buttonled_pm4f_ti_sysbios_hal_Hwi_HwiProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_hal_Hwi_HwiProxy_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_hal_Hwi_HwiProxy_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_hal_Hwi_HwiProxy_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_hal_Hwi_HwiProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_hal_Hwi_HwiProxy_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_hal_Hwi_HwiProxy_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_hal_Hwi_HwiProxy_config.o
 heaps_HeapMem.o: heaps/HeapMem.c makefile
 	@-$(call RM, heaps_HeapMem.o)
 	$(COMPILE) -o heaps_HeapMem.o
-cfg_buttonled_pm4f_ti_sysbios_heaps_HeapMem_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_heaps_HeapMem_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_heaps_HeapMem_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_heaps_HeapMem_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapMem_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapMem_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapMem_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapMem_config.o
 heaps_HeapTrack.o: heaps/HeapTrack.c makefile
 	@-$(call RM, heaps_HeapTrack.o)
 	$(COMPILE) -o heaps_HeapTrack.o
-cfg_buttonled_pm4f_ti_sysbios_heaps_HeapTrack_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_heaps_HeapTrack_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_heaps_HeapTrack_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_heaps_HeapTrack_config.o
-cfg_buttonled_pm4f_ti_sysbios_heaps_HeapMem_Module_GateProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_heaps_HeapMem_Module_GateProxy_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_heaps_HeapMem_Module_GateProxy_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_heaps_HeapMem_Module_GateProxy_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapTrack_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapTrack_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapTrack_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapTrack_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapMem_Module_GateProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapMem_Module_GateProxy_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapMem_Module_GateProxy_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapMem_Module_GateProxy_config.o
 gates_GateHwi.o: gates/GateHwi.c makefile
 	@-$(call RM, gates_GateHwi.o)
 	$(COMPILE) -o gates_GateHwi.o
-cfg_buttonled_pm4f_ti_sysbios_gates_GateHwi_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_gates_GateHwi_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_gates_GateHwi_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_gates_GateHwi_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_gates_GateHwi_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_gates_GateHwi_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_gates_GateHwi_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_gates_GateHwi_config.o
 gates_GateMutexPri.o: gates/GateMutexPri.c makefile
 	@-$(call RM, gates_GateMutexPri.o)
 	$(COMPILE) -o gates_GateMutexPri.o
 gates_GateMutex.o: gates/GateMutex.c makefile
 	@-$(call RM, gates_GateMutex.o)
 	$(COMPILE) -o gates_GateMutex.o
-cfg_buttonled_pm4f_ti_sysbios_gates_GateMutex_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_ti_sysbios_gates_GateMutex_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_ti_sysbios_gates_GateMutex_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_ti_sysbios_gates_GateMutex_config.o
+cfg_SensorNodeTestSuite_pm4f_ti_sysbios_gates_GateMutex_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_ti_sysbios_gates_GateMutex_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_ti_sysbios_gates_GateMutex_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_gates_GateMutex_config.o
 ti_ReentSupport.o: rts/ti/ReentSupport.c makefile
 	@-$(call RM, ti_ReentSupport.o)
 	$(COMPILE) -o ti_ReentSupport.o
@@ -228,9 +228,9 @@ runtime_Diags.o: xdc/runtime/Diags.c makefile
 runtime_Error.o: xdc/runtime/Error.c makefile
 	@-$(call RM, runtime_Error.o)
 	$(COMPILE) -o runtime_Error.o
-cfg_buttonled_pm4f_xdc_runtime_Error_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_xdc_runtime_Error_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_xdc_runtime_Error_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_xdc_runtime_Error_config.o
+cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Error_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_xdc_runtime_Error_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Error_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Error_config.o
 runtime_Gate.o: xdc/runtime/Gate.c makefile
 	@-$(call RM, runtime_Gate.o)
 	$(COMPILE) -o runtime_Gate.o
@@ -240,9 +240,9 @@ runtime_Log.o: xdc/runtime/Log.c makefile
 runtime_Memory.o: xdc/runtime/Memory.c makefile
 	@-$(call RM, runtime_Memory.o)
 	$(COMPILE) -o runtime_Memory.o
-cfg_buttonled_pm4f_xdc_runtime_Memory_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_xdc_runtime_Memory_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_xdc_runtime_Memory_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_xdc_runtime_Memory_config.o
+cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Memory_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_xdc_runtime_Memory_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Memory_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Memory_config.o
 runtime_HeapMin.o: xdc/runtime/HeapMin.c makefile
 	@-$(call RM, runtime_HeapMin.o)
 	$(COMPILE) -o runtime_HeapMin.o
@@ -255,15 +255,15 @@ runtime_Startup.o: xdc/runtime/Startup.c makefile
 runtime_System.o: xdc/runtime/System.c makefile
 	@-$(call RM, runtime_System.o)
 	$(COMPILE) -o runtime_System.o
-cfg_buttonled_pm4f_xdc_runtime_System_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_xdc_runtime_System_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_xdc_runtime_System_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_xdc_runtime_System_config.o
+cfg_SensorNodeTestSuite_pm4f_xdc_runtime_System_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_xdc_runtime_System_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_xdc_runtime_System_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_System_config.o
 runtime_SysCallback.o: xdc/runtime/SysCallback.c makefile
 	@-$(call RM, runtime_SysCallback.o)
 	$(COMPILE) -o runtime_SysCallback.o
-cfg_buttonled_pm4f_xdc_runtime_SysCallback_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_xdc_runtime_SysCallback_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_xdc_runtime_SysCallback_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_xdc_runtime_SysCallback_config.o
+cfg_SensorNodeTestSuite_pm4f_xdc_runtime_SysCallback_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_xdc_runtime_SysCallback_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_xdc_runtime_SysCallback_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_SysCallback_config.o
 runtime_SysMin.o: xdc/runtime/SysMin.c makefile
 	@-$(call RM, runtime_SysMin.o)
 	$(COMPILE) -o runtime_SysMin.o
@@ -273,18 +273,18 @@ runtime_Text.o: xdc/runtime/Text.c makefile
 runtime_Timestamp.o: xdc/runtime/Timestamp.c makefile
 	@-$(call RM, runtime_Timestamp.o)
 	$(COMPILE) -o runtime_Timestamp.o
-cfg_buttonled_pm4f_xdc_runtime_Timestamp_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_xdc_runtime_Timestamp_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_xdc_runtime_Timestamp_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_xdc_runtime_Timestamp_config.o
-cfg_buttonled_pm4f_xdc_runtime_Memory_HeapProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_xdc_runtime_Memory_HeapProxy_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_xdc_runtime_Memory_HeapProxy_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_xdc_runtime_Memory_HeapProxy_config.o
-cfg_buttonled_pm4f_xdc_runtime_System_Module_GateProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_xdc_runtime_System_Module_GateProxy_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_xdc_runtime_System_Module_GateProxy_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_xdc_runtime_System_Module_GateProxy_config.o
-cfg_buttonled_pm4f_xdc_runtime_Timestamp_SupportProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/buttonLEDP71/Debug/configPkg/package/cfg/buttonled_pm4f_xdc_runtime_Timestamp_SupportProxy_config.c makefile
-	@-$(call RM, cfg_buttonled_pm4f_xdc_runtime_Timestamp_SupportProxy_config.o)
-	$(COMPILE) -o cfg_buttonled_pm4f_xdc_runtime_Timestamp_SupportProxy_config.o
+cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Timestamp_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_xdc_runtime_Timestamp_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Timestamp_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Timestamp_config.o
+cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Memory_HeapProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_xdc_runtime_Memory_HeapProxy_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Memory_HeapProxy_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Memory_HeapProxy_config.o
+cfg_SensorNodeTestSuite_pm4f_xdc_runtime_System_Module_GateProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_xdc_runtime_System_Module_GateProxy_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_xdc_runtime_System_Module_GateProxy_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_System_Module_GateProxy_config.o
+cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Timestamp_SupportProxy_config.o: C:/Users/kingi/Documents/UTD/Senior_Design/CCS/SensorNodeTestSuite/Debug/configPkg/package/cfg/SensorNodeTestSuite_pm4f_xdc_runtime_Timestamp_SupportProxy_config.c makefile
+	@-$(call RM, cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Timestamp_SupportProxy_config.o)
+	$(COMPILE) -o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Timestamp_SupportProxy_config.o
 tirtos_clock.o: ti/posix/tirtos/clock.c makefile
 	@-$(call RM, tirtos_clock.o)
 	$(COMPILE) -o tirtos_clock.o
@@ -325,7 +325,7 @@ tirtos_timer.o: ti/posix/tirtos/timer.c makefile
 	@-$(call RM, tirtos_timer.o)
 	$(COMPILE) -o tirtos_timer.o
 
-rom_sysbios.am4f: m3_Hwi_asm_gnu.o m3_Hwi_asm_switch_gnu.o m3_TaskSupport_asm_gnu.o _BIOS.o knl_Clock.o cfg_buttonled_pm4f_ti_sysbios_knl_Clock_config.o knl_Idle.o knl_Intrinsics.o knl_Event.o cfg_buttonled_pm4f_ti_sysbios_knl_Event_config.o knl_Mailbox.o cfg_buttonled_pm4f_ti_sysbios_knl_Mailbox_config.o knl_Queue.o cfg_buttonled_pm4f_ti_sysbios_knl_Queue_config.o knl_Semaphore.o cfg_buttonled_pm4f_ti_sysbios_knl_Semaphore_config.o knl_Swi.o cfg_buttonled_pm4f_ti_sysbios_knl_Swi_config.o knl_Task.o cfg_buttonled_pm4f_ti_sysbios_knl_Task_config.o cfg_buttonled_pm4f_ti_sysbios_knl_Clock_TimerProxy_config.o cfg_buttonled_pm4f_ti_sysbios_knl_Task_SupportProxy_config.o cfg_buttonled_pm4f_ti_sysbios_BIOS_config.o cfg_buttonled_pm4f_ti_sysbios_BIOS_RtsGateProxy_config.o m3_Hwi.o cfg_buttonled_pm4f_ti_sysbios_family_arm_m3_Hwi_config.o m3_TaskSupport.o cfg_buttonled_pm4f_ti_sysbios_family_arm_m3_TaskSupport_config.o cc26xx_Boot.o cc26xx_Seconds.o cc26xx_Timer.o cfg_buttonled_pm4f_ti_sysbios_family_arm_cc26xx_Timer_config.o cc26xx_TimestampProvider.o cfg_buttonled_pm4f_ti_sysbios_family_arm_cc26xx_TimestampProvider_config.o hal_Hwi.o hal_Hwi_stack.o hal_Hwi_startup.o cfg_buttonled_pm4f_ti_sysbios_hal_Hwi_config.o hal_Seconds.o cfg_buttonled_pm4f_ti_sysbios_hal_Hwi_HwiProxy_config.o heaps_HeapMem.o cfg_buttonled_pm4f_ti_sysbios_heaps_HeapMem_config.o heaps_HeapTrack.o cfg_buttonled_pm4f_ti_sysbios_heaps_HeapTrack_config.o cfg_buttonled_pm4f_ti_sysbios_heaps_HeapMem_Module_GateProxy_config.o gates_GateHwi.o cfg_buttonled_pm4f_ti_sysbios_gates_GateHwi_config.o gates_GateMutexPri.o gates_GateMutex.o cfg_buttonled_pm4f_ti_sysbios_gates_GateMutex_config.o ti_ReentSupport.o ti_aeabi_portable.o runtime_xdc_noinit.o runtime_Assert.o runtime_Core-mem.o runtime_Core-smem.o runtime_Core-label.o runtime_Core-params.o runtime_Diags.o runtime_Error.o cfg_buttonled_pm4f_xdc_runtime_Error_config.o runtime_Gate.o runtime_Log.o runtime_Memory.o cfg_buttonled_pm4f_xdc_runtime_Memory_config.o runtime_HeapMin.o runtime_Registry.o runtime_Startup.o runtime_System.o cfg_buttonled_pm4f_xdc_runtime_System_config.o runtime_SysCallback.o cfg_buttonled_pm4f_xdc_runtime_SysCallback_config.o runtime_SysMin.o runtime_Text.o runtime_Timestamp.o cfg_buttonled_pm4f_xdc_runtime_Timestamp_config.o cfg_buttonled_pm4f_xdc_runtime_Memory_HeapProxy_config.o cfg_buttonled_pm4f_xdc_runtime_System_Module_GateProxy_config.o cfg_buttonled_pm4f_xdc_runtime_Timestamp_SupportProxy_config.o tirtos_clock.o tirtos_mqueue.o tirtos_pthread.o tirtos_pthread_barrier.o tirtos_pthread_cond.o tirtos_pthread_key.o tirtos_pthread_mutex.o tirtos_pthread_rwlock.o tirtos_pthread_util.o tirtos_sched.o tirtos_semaphore.o tirtos_sleep.o tirtos_timer.o
+rom_sysbios.am4f: m3_Hwi_asm_gnu.o m3_Hwi_asm_switch_gnu.o m3_TaskSupport_asm_gnu.o _BIOS.o knl_Clock.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Clock_config.o knl_Idle.o knl_Intrinsics.o knl_Event.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Event_config.o knl_Mailbox.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Mailbox_config.o knl_Queue.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Queue_config.o knl_Semaphore.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Semaphore_config.o knl_Swi.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Swi_config.o knl_Task.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Task_config.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Clock_TimerProxy_config.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_knl_Task_SupportProxy_config.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_BIOS_config.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_BIOS_RtsGateProxy_config.o m3_Hwi.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_m3_Hwi_config.o m3_TaskSupport.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_m3_TaskSupport_config.o cc26xx_Boot.o cc26xx_Seconds.o cc26xx_Timer.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_cc26xx_Timer_config.o cc26xx_TimestampProvider.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_family_arm_cc26xx_TimestampProvider_config.o hal_Hwi.o hal_Hwi_stack.o hal_Hwi_startup.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_hal_Hwi_config.o hal_Seconds.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_hal_Hwi_HwiProxy_config.o heaps_HeapMem.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapMem_config.o heaps_HeapTrack.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapTrack_config.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_heaps_HeapMem_Module_GateProxy_config.o gates_GateHwi.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_gates_GateHwi_config.o gates_GateMutexPri.o gates_GateMutex.o cfg_SensorNodeTestSuite_pm4f_ti_sysbios_gates_GateMutex_config.o ti_ReentSupport.o ti_aeabi_portable.o runtime_xdc_noinit.o runtime_Assert.o runtime_Core-mem.o runtime_Core-smem.o runtime_Core-label.o runtime_Core-params.o runtime_Diags.o runtime_Error.o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Error_config.o runtime_Gate.o runtime_Log.o runtime_Memory.o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Memory_config.o runtime_HeapMin.o runtime_Registry.o runtime_Startup.o runtime_System.o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_System_config.o runtime_SysCallback.o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_SysCallback_config.o runtime_SysMin.o runtime_Text.o runtime_Timestamp.o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Timestamp_config.o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Memory_HeapProxy_config.o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_System_Module_GateProxy_config.o cfg_SensorNodeTestSuite_pm4f_xdc_runtime_Timestamp_SupportProxy_config.o tirtos_clock.o tirtos_mqueue.o tirtos_pthread.o tirtos_pthread_barrier.o tirtos_pthread_cond.o tirtos_pthread_key.o tirtos_pthread_mutex.o tirtos_pthread_rwlock.o tirtos_pthread_util.o tirtos_sched.o tirtos_semaphore.o tirtos_sleep.o tirtos_timer.o
 	@-$(call RM, $@)
 	@echo arm4f $^ ...
 	@$(AR) $@ $^

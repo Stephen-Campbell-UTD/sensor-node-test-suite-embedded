@@ -42,19 +42,7 @@ float getBatteryVoltage() {
     return voltageFrac + voltageWhole;
 }
 
-
-void* displayBatmonThreadFunc(void* arg0) {
-    AONBatMonEnable();
-
-    /* Open button 1 and button 2 */
-    while (1) {
-        Semaphore_pend(displaySem, BIOS_WAIT_FOREVER);
-        uint32_t degreesC = AONBatMonTemperatureGetDegC();
-        //TODO Check BATUPD.STAT =1 (voltage is ready?)
-        Display_print1(display, 0, 0, "Temperature  = %i C", degreesC);
-        Display_print1(display, 0, 0, "VDD  = %f V", getBatteryVoltage());
-        Semaphore_post(displaySem);
-
-        sleep(3);
-    }
+uint32_t getTemperatureDegreesC() {
+    uint32_t degreesC = AONBatMonTemperatureGetDegC();
+    return degreesC;
 }

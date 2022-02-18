@@ -48,97 +48,46 @@
 #include <ti/display/Display.h> 
 #include <ti/sysbios/knl/Semaphore.h>
 #include "ti_drivers_config.h"
-#include "main_tirtos.h"
-#include "buttonled.h"
-#include "displayBatmon.h"
+#include "application/application.h"
+#include <ti/devices/cc13x2_cc26x2/driverlib/aon_batmon.h>
 
-Display_Handle display;
-ADCBuf_Handle adcBuf;
-Semaphore_Handle displaySem;
-Semaphore_Struct displaySemStruct;
 
 /* Stack size in bytes */
-#define THREADSTACKSIZE    1024
-
+#define THREADSTACKSIZE  2048
 
 /*
  *  ======== main ========
  */
 int main(void) {
-    pthread_t           buttonLEDThread;
-    pthread_attr_t      buttonLEDAttrs;
-    pthread_t           displayBatmonThread;
-    pthread_attr_t      displayBatmonAttrs;
-    struct sched_param  priParam;
-    int                 retc;
+  pthread_t           mainThread;
+  pthread_attr_t      mainThreadAttrs;
+  struct sched_param  priParam;
+  int                 retc;
 
+  Board_init();
+  AONBatMonEnable();
+  ADCBuf_init();
 
-    Board_init();
-    Display_init();
-    Semaphore_Params displaySemParams;
-    Semaphore_Params_init(&displaySemParams);
-    // Semaphore_ctr
-    display = Display_open(Display_Type_UART, NULL);
-    if (display == NULL) {
-        while (1);
-    }
-    Semaphore_construct(&displaySemStruct, 1, &displaySemParams);
-    displaySem = Semaphore_handle(&displaySemStruct);
-
-    ADCBuf_init();
-    ADCBuf_Params adcBufParams;
-    ADCBuf_Params_init(&adcBufParams);
-    // tickPeriod is in us
-    adcBufParams.blockingTimeout = 1000000 / ti_sysbios_knl_Clock_tickPeriod;
-    adcBufParams.samplingFrequency = 44100;
-    //TODO initialize params
-    ADCBufCC26X2_ParamsExtension adcBufParamsExtension = {
-        .samplingDuration = ADCBufCC26X2_SAMPLING_DURATION_10P6_US,
-        .inputScalingEnabled = true ,
-        .refSource = ADCBufCC26X2_FIXED_REFERENCE,
-        .samplingMode = ADCBufCC26X2_SAMPING_MODE_ASYNCHRONOUS
-    };
-    adcBufParams.custom = &adcBufParamsExtension;
-
-    adcBuf = ADCBuf_open(CONFIG_ADCBUF_0, &adcBufParams);
-
-    /* Initialize the attributes structure with default values */
-    pthread_attr_init(&buttonLEDAttrs);
-    /* Set priority, detach state, and stack size attributes */
-    priParam.sched_priority = 1;
-    retc = pthread_attr_setschedparam(&buttonLEDAttrs, &priParam);
-    retc |= pthread_attr_setdetachstate(&buttonLEDAttrs, PTHREAD_CREATE_DETACHED);
-    retc |= pthread_attr_setstacksize(&buttonLEDAttrs, THREADSTACKSIZE);
-    if (retc != 0) {
-        /* failed to set attributes */
-        while (1) {}
-    }
-
-    retc = pthread_create(&buttonLEDThread, &buttonLEDAttrs, buttonLEDThreadFunc, NULL);
-    if (retc != 0) {
-        /* pthread_create() failed */
-        while (1) {}
-    }
-    /* Initialize the attributes structure with default values */
-    pthread_attr_init(&displayBatmonAttrs);
-    /* Set priority, detach state, and stack size attributes */
-    retc = pthread_attr_setschedparam(&displayBatmonAttrs, &priParam);
-    retc |= pthread_attr_setdetachstate(&displayBatmonAttrs, PTHREAD_CREATE_DETACHED);
-    retc |= pthread_attr_setstacksize(&displayBatmonAttrs, THREADSTACKSIZE);
-    if (retc != 0) {
-        /* failed to set attributes */
-        while (1) {}
-    }
-
-    retc = pthread_create(&displayBatmonThread, &displayBatmonAttrs, displayBatmonThreadFunc, NULL);
-    if (retc != 0) {
-        /* pthread_create() failed */
-        while (1) {}
-    }
+  /* Initialize the attributes structure with default values */
+  pthread_attr_init(&mainThreadAttrs);
+  /* Set priority, detach state, and stack size attributes */
+  priParam.sched_priority = 1;
+  retc = pthread_attr_setschedparam(&mainThreadAttrs, &priParam);
+  retc |= pthread_attr_setdetachstate(&mainThreadAttrs, PTHREAD_CREATE_DETACHED);
+  retc |= pthread_attr_setstacksize(&mainThreadAttrs, THREADSTACKSIZE);
+  if (retc != 0) {
+    /* failed to set attributes */
+    while (1) {}
+  }
+  retc = pthread_create(&mainThread, &mainThreadAttrs, mainThreadFunc, NULL);
+  if (retc != 0) {
+    /* pthread_create() failed */
+    while (1) {}
+  }
 
 
 
-    BIOS_start();
+  BIOS_start();
 
-    return (0);
+  return (0);
 }

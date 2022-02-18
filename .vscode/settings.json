@@ -24,6 +24,15 @@
     "buttonled.h": "c",
     "adccc26xx.h": "c",
     "devicefamily.h": "c",
-    "adcbufcc26x2.h": "c"
+    "adcbufcc26x2.h": "c",
+    "__config": "c",
+    "application.h": "c",
+    "uart2.h": "c",
+    "cstring": "c",
+    "locale": "c",
+    "string.h": "c",
+    "sensornode.h": "c",
+    "semaphorep.h": "c",
+    "batmonwrapper.h": "c"
   }
 }

@@ -1,2 +1,7 @@
+# https://software-dl.ti.com/ccs/esd/documents/sdto_ccs_source-control.html
+
 Debug
 src
+.xdchelp
+.config
+.launches

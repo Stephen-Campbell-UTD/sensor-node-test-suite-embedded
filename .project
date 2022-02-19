@@ -3,7 +3,6 @@
 	<name>SensorNodeTestSuite</name>
 	<comment></comment>
 	<projects>
-		<project>tirtos_builds_cc13x2x7_cc26x2x7_release_ticlang</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

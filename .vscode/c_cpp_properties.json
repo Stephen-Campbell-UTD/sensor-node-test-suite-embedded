@@ -1,6 +1,6 @@
 {
   "env": {
-    "COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR": "C:/ti/simplelink_cc13xx_cc26xx_sdk_5_30_01_01",
+    "COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR": "C:/ti/simplelink_cc13xx_cc26xx_sdk_5_40_00_40",
     "CCS_ROOT": "C:/ti/ccs1110",
     "PROJECT_ROOT": "${workspaceFolder}",
     "config_name": "Release"
@@ -150,7 +150,9 @@
         "MAC_MAX_TX_MTU_SIZE=1576",
         "NV_RESTORE"
       ],
-      "forcedInclude": ["{workspaceFolder}/.vscode/vscode-preinclude.h"],
+      "forcedInclude": [
+        "{workspaceFolder}/.vscode/vscode-preinclude.h"
+      ],
       "compilerPath": "C:/ti/ccs1110/ccs/tools/compiler/ti-cgt-armllvm_1.3.0.LTS/bin/tiarmclang.exe",
       "cStandard": "c17",
       "cppStandard": "c++17",

@@ -8,7 +8,9 @@
 #include <ti/sysbios/knl/Clock.h>
 #include <xdc/runtime/System.h>
 #include "Debug/syscfg/ti_drivers_config.h"
+#include "application/application.h"
 #include "application/batmonWrapper.h"
+#include "application/readPIR.h"
 #include "application/sensorNode.h"
 
 // ADCBuf_Handle adcBuf;
@@ -68,6 +70,8 @@ uint32_t count = 0;
 void* mainThreadFunc(void* t) {
   setupUART();
 
+  GPIO_init();
+
   ADCBuf_Params adcBufParams;
   ADCBuf_Params_init(&adcBufParams);
   // tickPeriod is in us
@@ -95,6 +99,9 @@ void* mainThreadFunc(void* t) {
     }
     else if (!strncmp("ADC", input, 3)) {
       readDecibel();
+    }
+    else if (!strncmp("PIR", input, 3)) {
+      readPIR();
     }
     else {
       uartPrintf("BAD CODE!\n", count);

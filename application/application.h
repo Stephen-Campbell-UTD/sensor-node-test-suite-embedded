@@ -5,6 +5,7 @@
 #include <ti/drivers/ADCBuf.h>
 #include <ti/drivers/UART2.h>
 
+
 void* mainThreadFunc(void*);
 void uartPrintf(const char* fmt, ...);
 extern UART2_Handle uart;

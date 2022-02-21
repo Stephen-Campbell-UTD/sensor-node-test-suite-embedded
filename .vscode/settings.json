@@ -33,6 +33,7 @@
     "string.h": "c",
     "sensornode.h": "c",
     "semaphorep.h": "c",
-    "batmonwrapper.h": "c"
+    "batmonwrapper.h": "c",
+    "readpir.h": "c"
   }
 }

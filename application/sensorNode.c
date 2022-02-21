@@ -46,11 +46,17 @@ float readDecibel() {
       return NAN;
     }
     //voltage divider
-    float dcOffset = getBatteryVoltage() / 2;
+
+    float accumulatorAverage = 0.0f;
+    for (size_t sampleIndex = 0; sampleIndex < ADC_BUFFER_SIZE; sampleIndex++) {
+      accumulatorAverage += microVoltsBuffer[sampleIndex] * 1e-6;
+    }
+    accumulatorAverage /= ADC_BUFFER_SIZE;
+
     uartPrintf("{ \"path\" : \"ADC\" , \"value\" : { \"voltages\" : [");
     float accumulator = 0.0f;
     for (size_t sampleIndex = 0; sampleIndex < ADC_BUFFER_SIZE; sampleIndex++) {
-      accumulator += pow(microVoltsBuffer[sampleIndex] * (1e-6) - dcOffset, 2);
+      accumulator += pow(microVoltsBuffer[sampleIndex] * (1e-6) - accumulatorAverage, 2);
       const uint32_t val = microVoltsBuffer[sampleIndex];
       uartPrintf("%u", val);
       // System_printf("%u", val);
